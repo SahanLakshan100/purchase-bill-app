@@ -18,3 +18,6 @@ A full-stack application built for the Enhanzer Full Stack Developer assessment.
 - Node.js 18+ (and Angular CLI)
 - SQL Server Express running on `localhost\SQLEXPRESS`
 
+## 🎥 Demo Video
+
+[Click here to watch the screen recording](screen-capture%20(1).webm)
