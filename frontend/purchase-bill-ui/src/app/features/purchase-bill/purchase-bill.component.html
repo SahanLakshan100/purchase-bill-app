@@ -1,0 +1,63 @@
+﻿<mat-toolbar color="primary" class="top-bar">
+  <span>Purchase Bill</span>
+  <span class="spacer"></span>
+  <button mat-button (click)="auth.logout()">Logout</button>
+</mat-toolbar>
+
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="add()" class="entry-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Item*</mat-label>
+      <input matInput formControlName="item" [matAutocomplete]="auto" />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let o of filteredItems$ | async" [value]="o">{{ o }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Batch*</mat-label>
+      <mat-select formControlName="batch">
+        <mat-option *ngFor="let l of locations" [value]="l.location_Name">{{ l.location_Name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline"><mat-label>Standard Cost</mat-label><input matInput type="number" formControlName="standardCost" /></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Standard Price</mat-label><input matInput type="number" formControlName="standardPrice" /></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Discount %</mat-label><input matInput type="number" formControlName="discountPct" /></mat-form-field>
+    <mat-form-field appearance="outline"><mat-label>Qty</mat-label><input matInput type="number" formControlName="qty" /></mat-form-field>
+
+    <div class="preview">
+      <span>Total Cost: {{ totalCostPreview | number:'1.2-2' }}</span>
+      <span>Total Selling: {{ totalSellingPreview | number:'1.2-2' }}</span>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">Add</button>
+  </form>
+
+  <div class="grid">
+    <div class="lines">
+      <table mat-table [dataSource]="rows" class="mat-elevation-z2">
+        <ng-container matColumnDef="item"><th mat-header-cell *matHeaderCellDef>Item</th><td mat-cell *matCellDef="let r">{{ r.itemName }}</td></ng-container>
+        <ng-container matColumnDef="batch"><th mat-header-cell *matHeaderCellDef>Batch</th><td mat-cell *matCellDef="let r">{{ r.batch }}</td></ng-container>
+        <ng-container matColumnDef="standardCost"><th mat-header-cell *matHeaderCellDef>Std Cost</th><td mat-cell *matCellDef="let r">{{ r.standardCost }}</td></ng-container>
+        <ng-container matColumnDef="standardPrice"><th mat-header-cell *matHeaderCellDef>Std Price</th><td mat-cell *matCellDef="let r">{{ r.standardPrice }}</td></ng-container>
+        <ng-container matColumnDef="discountPct"><th mat-header-cell *matHeaderCellDef>Disc %</th><td mat-cell *matCellDef="let r">{{ r.discountPct }}</td></ng-container>
+        <ng-container matColumnDef="qty"><th mat-header-cell *matHeaderCellDef>Qty</th><td mat-cell *matCellDef="let r">{{ r.qty }}</td></ng-container>
+        <ng-container matColumnDef="totalCost"><th mat-header-cell *matHeaderCellDef>Total Cost</th><td mat-cell *matCellDef="let r">{{ r.totalCost | number:'1.2-2' }}</td></ng-container>
+        <ng-container matColumnDef="totalSelling"><th mat-header-cell *matHeaderCellDef>Total Selling</th><td mat-cell *matCellDef="let r">{{ r.totalSelling | number:'1.2-2' }}</td></ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <aside class="summary">
+      <h3>Item Summary</h3>
+      <div class="row"><span>Total Items</span><span>{{ totalItems }}</span></div>
+      <div class="row"><span>Total Quantity</span><span>{{ totalQty }}</span></div>
+      <hr />
+      <h3>Total Bill</h3>
+      <div class="row total"><span>Net Total</span><span>Rs. {{ grandTotal | number:'1.2-2' }}</span></div>
+    </aside>
+  </div>
+</div>

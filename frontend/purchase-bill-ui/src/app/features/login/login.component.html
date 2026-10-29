@@ -1,0 +1,29 @@
+﻿<div class="login-wrapper">
+  <div class="login-card">
+    <h1>Hi</h1>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>email</mat-icon>
+        <input matInput placeholder="Email*" formControlName="email" />
+        <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
+        <mat-error *ngIf="form.get('email')?.hasError('email')">Enter a valid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-icon matPrefix>vpn_key</mat-icon>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password*" formControlName="password" />
+        <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="form.get('password')?.hasError('required')">Password is required</mat-error>
+      </mat-form-field>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <button mat-raised-button class="login-btn" type="submit" [disabled]="loading">
+        <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+        <span *ngIf="!loading">LOGIN</span>
+      </button>
+    </form>
+  </div>
+</div>

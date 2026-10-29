@@ -1,0 +1,12 @@
+﻿.top-bar { background: #1565c0; color: white; }
+.spacer { flex: 1; }
+.container { padding: 24px; max-width: 1400px; margin: 0 auto; }
+.entry-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; align-items: end; padding: 16px; background: #fff; border-radius: 8px; border: 1px solid #e0e0e0; margin-bottom: 20px; }
+.preview { display: flex; flex-direction: column; font-size: 13px; }
+.grid { display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
+table { width: 100%; background: white; }
+.summary { background: #fff; padding: 16px; border-radius: 8px; border: 1px solid #e0e0e0; }
+.summary .row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; }
+.summary .total { font-weight: 700; font-size: 16px; }
+.summary hr { margin: 8px 0; border: none; border-top: 1px solid #eee; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
